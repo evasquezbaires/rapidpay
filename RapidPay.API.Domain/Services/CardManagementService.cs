@@ -92,7 +92,7 @@ namespace RapidPay.API.Domain.Services
             var entityMapped = _mapper.Map<PaymentCard>(paymentModel);
             var previousFeeRate = await _repository.GetLastPaymentFeeAsync();
             var feeRate = previousFeeRate != null ? previousFeeRate.FeeRate * feeExchange : feeExchange;
-            entityMapped.Fee = feeRate;
+            entityMapped.Fee = decimal.Round(feeRate, 2);
 
             if (previousFeeRate == null || previousFeeRate.FeeExchange != feeExchange)
                 await _repository.AddPaymentFeeAsync(new FeeHistory

@@ -9,7 +9,8 @@ namespace RapidPay.API.Domain.Mapper
         public CreditCardMapper()
         {
             CreateMap<CreditCardModel, CreditCard>()
-                .ForMember(d => d.BalanceAmount, o => o.MapFrom(s => s.TotalAmount))
+                .ForMember(d => d.TotalAmount, o => o.MapFrom(s => decimal.Round(s.TotalAmount, 2)))
+                .ForMember(d => d.BalanceAmount, o => o.MapFrom(s => decimal.Round(s.TotalAmount, 2)))
                 .ForMember(d => d.CardHolder, o => o.MapFrom(s => s.CardHolder.ToUpper()));
 
             CreateMap<CreditCard, CreditCardModel>();
